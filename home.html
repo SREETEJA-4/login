@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/20c5629a29.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <button type = "button" class = "btn" onclick = "logout()"> Logout</button>
+
+  <div id="sidebar">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+
+  </div>
+     
+  <div id="content">
+    <h1>Welcome to My Website</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ac ex nec tellus cursus tincidunt nec sit amet est.</p>
+  </div>
+  <div id="data-container"></div>
+
+</body>
+
+<script>
+
+     document.addEventListener("DOMContentLoaded", () => {
+
+  const dataContainer = document.getElementById("data-container");
+
+
+  const fetchData = () => {
+    const apiUrl = "https://jsonplaceholder.typicode.com/albums"; 
+ 
+
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+
+      .then(data => {
+
+        displayData(data);
+
+      })
+
+      .catch(error => {
+        console.error("Fetch error:", error);
+        dataContainer.textContent = "Failed to fetch data.";
+      });
+  };
+
+
+  const displayData = data => {
+
+    dataContainer.innerHTML = ""; 
+
+    data.forEach(item => {
+      const itemDiv = document.createElement("div");
+      itemDiv.textContent = `${item.userId} - ${item.id} - ${item.title}`;
+
+      dataContainer.appendChild(itemDiv);
+    });
+  };
+
+  fetchData();
+});
+
+async function fetchdata(){
+const temp = await fetch('https://jsonplaceholder.typicode.com/albums');
+let data=await temp.json()
+console.log(data)
+return data}
+
+fetchdata()
+      function logout(){
+          window.location.href="index.html";
+      }
+</script>
+</html>
+</html>
